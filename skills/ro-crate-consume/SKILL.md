@@ -3,7 +3,7 @@ name: ro-crate-consume
 description: "Retrieve and read an existing RO-Crate (Research Object Crate) from a permalink, DOI, repository URL, ZIP file or folder, and report what it contains: the root dataset, license, creators, main workflow or entry point, files, and any recorded runs or tests. Use this whenever a researcher or another skill needs the contents or metadata of an RO-Crate, for example a WorkflowHub workflow crate, a Workflow Run Crate, a dataset crate or a downloaded crate.zip, or asks what is inside one, even if they don't say 'RO-Crate' (for example 'what does this ro-crate-metadata.json say'). Read-only: it never modifies the crate and never writes crates; the crate is only read. Downloads are size-limited and rate-limited. To write or describe crates, use a crate-writing skill instead."
 license: BSD-3-Clause
 metadata:
-  version: "0.1.1"
+  version: "0.1.2"
   status: draft
   maintainer: eScience Lab, University of Manchester
 ---
@@ -112,6 +112,12 @@ option. HTML responses mean the server does not support the method.
   so in the report.
 - **Detached crate:** metadata only, where every file entity is a web URI. The
   data files are not part of the retrieval; don't fetch them unless asked.
+  A bare metadata file from a repository is in effect a detached crate, but
+  it is a *valid* detached crate only if the `@id` of its data entities are
+  absolute URIs. Relative ids such as `main.ga` only resolve inside the
+  package, so alone they point to nothing. Say which case you have, and don't
+  call the file a valid detached crate unless you checked the ids (to verify
+  against the specification version the crate declares).
 
 Wait at least 2 seconds before the next request to the same host if this was a
 crate download.

@@ -93,6 +93,11 @@ the source that has what you need, for a known ID and version only.
   is about 2 KB and gives maturity, inputs, outputs, people, team and
   keywords. It is a lighter source than the crate for these. It has no
   files, steps or profile claims for the crate. Pace it like any request.
+- **Metadata-only crate:** `/ro_crate_metadata` is in effect a detached
+  crate, but not a valid one, because the data entities have relative `@id`s
+  (file names) that only resolve inside the ZIP. Tested on 42, 46, 123, 1441
+  and 1625; not run through a validator. Don't treat its file entries as
+  fetchable links.
 - **Steps** are in the JSON API (`internals.steps`), not in the crate
   metadata.
 - **Dates:** the crate's `sdDatePublished` was the time of the request, not a

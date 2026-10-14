@@ -82,6 +82,8 @@ Skills fall into two groups:
   outputs.
 - A crate's `sdDatePublished` is the time of the request, not a publication
   date. Bioschemas `contributor` can be the submitter.
+- The metadata-only crate is in effect a detached crate, but not a valid one:
+  data entity `@id`s are relative file names, resolvable only inside the ZIP.
 - A crate's root dataset can be a URL (workflow 1625): follow `about`.
 
 Details are in `shared/tools.md` and the skills' `references/` folders.
