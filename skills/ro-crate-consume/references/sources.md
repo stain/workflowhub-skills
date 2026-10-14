@@ -16,6 +16,11 @@ Notes:
 
 - Throttle as in `SKILL.md`: at least 2 seconds between crate requests, one
   at a time. This applies to the metadata route too.
+- The metadata-only response is in effect a detached crate, but not a valid
+  one: the data entities in the five crates tested (workflows 42, 46, 123, 1441
+  and 1625) have relative `@id`s (file names such as `main-workflow.ga`), which
+  only resolve inside the ZIP. ROHub crates (three tested) use absolute URIs.
+  Not checked with a validator.
 - The metadata route was confirmed on one workflow. If it returns 404 or HTML
   for another, fall back to the ZIP route, within the size limit.
 - A WorkflowHub crate is a Workflow RO-Crate. The `mainEntity` is the

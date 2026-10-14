@@ -186,6 +186,11 @@ only for an ID and version that you know.
   7. It gives maturity, inputs, outputs, people, team (`producer`) and
   keywords. It has no files, steps or profile claims for the crate. Send it
   slowly, as all other requests.
+- **Metadata-only crate:** `/ro_crate_metadata` is almost a detached crate,
+  but not a valid one. Its data entities have relative `@id`s (file names).
+  These names resolve only inside the ZIP. Do not use its file entries as
+  links that you can fetch. Tested on 42, 46, 123, 1441 and 1625; not checked
+  with a validator.
 - **Steps** are in the JSON API (`internals.steps`), not in the crate
   metadata. But `internals` is frequently empty or incomplete. In a sample of
   35 workflows (2026-11-09), it was empty for all 11 Nextflow and all 10
