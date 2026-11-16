@@ -173,7 +173,7 @@ The repository is also a Claude Code plugin and a one-plugin marketplace, so
 all the skills install together with their dependencies:
 
 ```
-/plugin marketplace add stain/workflowhub-skills
+/plugin marketplace add sanskritsuthar/workflowhub-skills
 /plugin install workflowhub@workflowhub-skills
 ```
 
