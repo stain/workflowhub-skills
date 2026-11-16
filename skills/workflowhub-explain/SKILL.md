@@ -3,7 +3,7 @@ name: workflowhub-explain
 description: "Explain what a specific WorkflowHub workflow does, step by step: its inputs, processing steps, tools, key parameters, outputs and what it needs to run, and map its inputs to the researcher's own data. Use this whenever a researcher asks what a WorkflowHub workflow does, wants a walkthrough, asks what inputs or reference data it needs, whether their files will work with it, what they would need to install or provide, or how a Galaxy, Nextflow, Snakemake, CWL or other workflow from WorkflowHub is structured, even if they don't say 'explain'. Read-only and never runs the workflow. To search for workflows, use workflowhub-find; to judge quality or compare workflows, use workflowhub-evaluate."
 license: BSD-3-Clause
 metadata:
-  version: "0.2.2"
+  version: "0.2.3"
   status: draft
   maintainer: eScience Lab, University of Manchester
 # compatibility: Requires the WorkflowHub MCP server (read-only tools)

@@ -33,7 +33,7 @@ send HTTP requests, for example with curl or in a code-execution environment.
 |---|---|---|
 | Search and filter workflows | `GET /workflows?filter[query]=<terms>`, plus filters below | Confirmed (2026-10-14) |
 | Read a workflow's metadata | `GET /workflows/<id>`, or add `?version=<n>` | Confirmed (2026-10-14) |
-| Download a workflow's content | `GET /workflows/<id>/ro_crate?version=<n>` (a zip file) | Confirmed (2026-10-14) |
+| Download a workflow's content | `GET /workflows/<id>/ro_crate?version=<n>` (a zip file). The server makes the ZIP for each request, also for HEAD. Use it only when you need the files. | Confirmed (2026-10-14) |
 | List all workflows (GA4GH TRS API) | `GET /ga4gh/trs/v2/tools` | Confirmed |
 | Read only the crate's `ro-crate-metadata.json` | `GET /workflows/<id>/ro_crate_metadata?version=<n>` (small JSON; identical to the file in the ZIP) | Confirmed on workflow 248 |
 | Read one workflow file (GA4GH TRS API) | `GET /ga4gh/trs/v2/tools/<id>/versions/<n>/<type>/descriptor` | Confirmed for `GALAXY`, `CWL`, `NFL`, `SMK` |
@@ -84,8 +84,11 @@ Notes:
 - Encode square brackets as `%5B` and `%5D`, or give curl the `-g` option.
   Without this, curl reads them as patterns.
 - If a response has `links.next`, get the next page from that link.
-- The content download is a ZIP archive. Its `ro-crate-metadata.json` file
-  identifies the main workflow file.
+- The content download is a ZIP archive. To find the main workflow file,
+  read `mainEntity` from the metadata request.
+- For questions about many workflows, use the WorkflowHub Knowledge Graph.
+  Do not get crates one at a time. See
+  `ro-crate-consume/references/sources.md`.
 
 Example (saved to a file, as the next section explains):
 
@@ -175,12 +178,20 @@ The JSON API, the crate and the Bioschemas record give some of the same
 facts, but not all. Use the source that has the fact that you need. Use them
 only for an ID and version that you know.
 
+- **Supplied or generated crate.** A generated crate has a root `name` that
+  starts with "Research Object Crate for". WorkflowHub makes it from its own
+  record. A supplied crate is served as it was uploaded (45% of crates on
+  2026-10-17). It is the statement of the authors, and it does not show later
+  changes on WorkflowHub. WorkflowHub does not read or show test definitions,
+  recorded runs, `softwareRequirements` or the inputs and outputs of a crate.
+  Thus, a supplied crate can have more information than the page.
 - **Maturity** is not in the JSON API. The crate and Bioschemas give it as
   `creativeWorkStatus` (Stable, Work-in-progress). They give it only for
   crates that WorkflowHub generated; 1441 and 1625 have none. If there is no
   value, report maturity as unknown. The two sources can be different: for
   1266 version 7 (2026-11-09), the crate gave Stable and Bioschemas gave
-  nothing. Thus, look in the crate first.
+  nothing. Thus, look in the crate first. In a supplied crate, the value is
+  the statement of the authors.
 - **Bioschemas** (`Accept: application/ld+json` on `/workflows/<id>?version=<n>`)
   was approximately 2 KB for the October sample and 11 KB for 1266 version
   7. It gives maturity, inputs, outputs, people, team (`producer`) and

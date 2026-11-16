@@ -10,7 +10,9 @@ crates (2026-10-14).
 `conformsTo` can be in three places. Look at all of them:
 
 1. the **metadata descriptor** (`ro-crate-metadata.json`): the RO-Crate
-   version, and in older crates also the Workflow RO-Crate profile;
+   version, and in older crates also the Workflow RO-Crate profile.
+   Generated WorkflowHub crates put Workflow RO-Crate 1.0 here, with
+   RO-Crate 1.3;
 2. the **root dataset**: newer profiles put their claims here, for example
    the Run Crate profiles;
 3. the **main workflow**: it can state conformance to Bioschemas
@@ -44,7 +46,8 @@ the descriptor. Do not assume `./`.
 ### Workflow RO-Crate
 
 The identifier above declares this layer, but many valid crates do not
-declare it. Confirm it by its structure:
+declare it (for example Galaxy Training Network and IWC crates). Confirm it
+by its structure:
 
 - The `mainEntity` of the root is a `File`, `SoftwareSourceCode` and
   `ComputationalWorkflow`. Its `programmingLanguage` refers to a
@@ -58,7 +61,8 @@ declare it. Confirm it by its structure:
   refer to. Many crates have none, also for workflows that have inputs. Then
   write "not declared", not "none".
 - Steps are optional. If they are there, the main workflow is also a `HowTo`,
-  and its `step` refers to `HowToStep` entities.
+  and its `step` refers to `HowToStep` entities. A `HowTo` without `step`
+  tells nothing about steps.
 
 The `mainEntity` is not always a usual workflow file. We saw a Nextflow
 `nextflow.config`, a Jupyter notebook and a Python script. Report what it
@@ -95,6 +99,8 @@ are important, read the profile pages at
 <https://www.researchobject.org/workflow-run-crate/>. In a sample COMPSs crate
 (workflow 1326), the entities were `CreateAction`, `ControlAction`,
 `OrganizeAction`, `HowToStep`, `FormalParameter` and `PropertyValue`.
+WorkflowHub serves Run Crates without change, but it does not read or show
+the runs (workflow 1072). The crate is the only source for them.
 
 Give a summary. Do not list all entities. Give:
 
@@ -118,7 +124,8 @@ these applies.
 When you have examined the layers above, list the entity types that remain.
 We saw these in WorkflowHub crates: `Project`, `Organization`, `Collection`,
 `LabProtocol`, `ContactPoint`, `WebSite`, `WorkflowSketch`,
-`SoftwareApplication`.
+`SoftwareApplication`. `WorkflowSketch` is the RO-Crate 1.0 type for a
+workflow diagram. Use it as the diagram.
 
 Report them under "other", with counts. Look at some examples for
 information that is important to the researcher. Examples are funding,

@@ -3,7 +3,7 @@ name: workflowhub-evaluate
 description: "Assess whether specific WorkflowHub workflows are trustworthy and fit a researcher's data and purpose, or compare several side by side, and give an evidence-based verdict. Use this whenever a researcher has particular workflows in mind (WorkflowHub IDs, URLs, names, or a shortlist from workflowhub-find) and asks things like 'is this any good', 'which one should I use', 'will this work with my data', 'is it maintained', 'can I reuse it' or 'compare these', even if they don't say 'evaluate'. Read-only. To search for candidates, use workflowhub-find; for a step-by-step walkthrough of what a workflow does, use workflowhub-explain."
 license: BSD-3-Clause
 metadata:
-  version: "0.2.3"
+  version: "0.2.4"
   status: draft
   maintainer: eScience Lab, University of Manchester
 # compatibility: Requires the WorkflowHub MCP server (read-only tools)

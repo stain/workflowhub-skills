@@ -110,6 +110,10 @@ Skills fall into two groups:
 - Many crates declare no inputs, outputs or workflow profile.
 - Maturity is not in the JSON API; the crate and Bioschemas give it as
   `creativeWorkStatus`, for generated crates only.
+- Crates are either **supplied** (served as uploaded, so they can lag behind
+  the WorkflowHub record) or **generated** (root `name` "Research Object Crate
+  for …").
+- A HEAD on `/ro_crate` builds the ZIP just as a GET does.
 - The JSON API's `internals` is empty for Nextflow and Snakemake (all 21
   sampled) and can be incomplete for Galaxy (unlabelled outputs dropped or
   renamed `_anonymous_output_<n>`). Treat it as a hint.

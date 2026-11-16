@@ -3,7 +3,7 @@ name: ro-crate-consume
 description: "Retrieve and read an existing RO-Crate (Research Object Crate) from a permalink, DOI, repository URL, ZIP file or folder, and report what it contains: the root dataset, license, creators, main workflow or entry point, files, and any recorded runs or tests. Use this whenever a researcher or another skill needs the contents or metadata of an RO-Crate, for example a WorkflowHub workflow crate, a Workflow Run Crate, a dataset crate or a downloaded crate.zip, or asks what is inside one, even if they don't say 'RO-Crate' (for example 'what does this ro-crate-metadata.json say'). Read-only: it never modifies the crate and never writes crates; the crate is only read. Downloads are size-limited and rate-limited. To write or describe crates, use a crate-writing skill instead."
 license: BSD-3-Clause
 metadata:
-  version: "0.1.2"
+  version: "0.1.3"
   status: draft
   maintainer: eScience Lab, University of Manchester
 ---
@@ -41,7 +41,7 @@ option, for the server and for the researcher.
 
 | Limit | Default | Notes |
 |---|---|---|
-| Largest ZIP or file to download without asking | 20 MiB | Check `Content-Length` with HEAD first. Above it, stop and ask the researcher, giving the size. |
+| Largest ZIP or file to download without asking | 20 MiB | Check `Content-Length` with HEAD first, unless `references/sources.md` says a HEAD costs the server as much as a GET for that host. Above it, stop and ask the researcher, giving the size. |
 | Unknown size (no `Content-Length`) | Don't download without asking | Ask first. If the researcher agrees, download with `curl --max-time 60` and discard the file if it was cut off. |
 | Crates fetched in a row | One at a time | Never download crates in parallel. |
 | Pause between crate downloads from the same host | At least 2 seconds | Applies to metadata and ZIP downloads. `sleep 2` between them. |
@@ -66,17 +66,21 @@ yourself.
 ### 2. Retrieve the metadata from a URL
 
 Work through these in order and stop at the first one that gives a valid
-RO-Crate metadata document. Keep a note of what you tried.
+RO-Crate metadata document. Keep a note of what you tried. If the host is
+listed in `references/sources.md` with a metadata-only route, use that route
+first: generic discovery may lead only to a ZIP or to the host's own JSON-LD.
 
 1. **Resolve and read signposting.** Follow redirects from the permalink
    (`curl -sIL`) and read the `Link` headers of the final response. If the
    `fair-signposting` skill is available, use it. Look for:
-   - `rel="describedby"` with `profile="https://w3id.org/ro/crate"`, or a type
-     `application/ld+json`: this is a metadata document. Prefer a link that
-     declares the RO-Crate profile.
+   - `rel="describedby"` with `profile="https://w3id.org/ro/crate"`: this is
+     the crate's metadata document. A `describedby` of type
+     `application/ld+json` without that profile is usually the site's own
+     schema.org or Bioschemas record, not the crate: check it before use.
    - `rel="item"` with `profile="https://w3id.org/ro/crate"` and type
-     `application/zip`: this is the whole crate as a ZIP. Check its size with
-     HEAD before going further.
+     `application/zip`: this is the whole crate as a ZIP. Don't download it
+     only to read the metadata. Check its size with HEAD before going further
+     (see the HEAD caveat in the limits table).
 2. **Content negotiation.** GET the permalink with
    `Accept: application/ld+json;profile="https://w3id.org/ro/crate"`.
 3. **Relative heuristic (optional).** After redirects, try

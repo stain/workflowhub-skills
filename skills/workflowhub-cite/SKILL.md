@@ -3,7 +3,7 @@ name: workflowhub-cite
 description: "Produce correct citations and provenance records for WorkflowHub workflows that a researcher has used or plans to use: a formatted citation with DOI and version, a draft methods paragraph and availability statement, and a YAML provenance entry saved in the researcher's own project. Use this whenever a researcher asks how to cite, credit or acknowledge a WorkflowHub workflow, needs methods text or a data or software availability statement, wants to record which workflow and version they used, or is preparing a paper, thesis, report or reproducibility record, even if they don't say 'cite'. Reads WorkflowHub only; writes only to the researcher's project."
 license: BSD-3-Clause
 metadata:
-  version: "0.1.4"
+  version: "0.1.5"
   status: draft
   maintainer: eScience Lab, University of Manchester
 # compatibility: Requires the WorkflowHub MCP server (read-only tools)
@@ -103,7 +103,8 @@ It is a good second source for this step. Obey these rules:
 Be careful with dates and people:
 
 - The `sdDatePublished` of a crate is the time when WorkflowHub made the
-  crate. It is not a publication date.
+  crate (or the uploader's value in a supplied crate). It is not a
+  publication date.
 - The `datePublished` of a crate can be the creation date. Tell the
   researcher which date a citation uses.
 - The Bioschemas `contributor` can be the submitter. Do not take creators

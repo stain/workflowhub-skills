@@ -3,7 +3,7 @@ name: workflowhub-find
 description: "Find existing computational workflows on WorkflowHub (workflowhub.eu) that match a research need, and return a short, justified shortlist. Use this whenever a researcher asks whether a workflow or pipeline already exists for an analysis, wants Galaxy, Nextflow, Snakemake, CWL, KNIME or other workflows for a task (for example sequence analysis, image processing, biodiversity modelling or environmental data processing), mentions WorkflowHub, or is about to build an analysis pipeline that could reuse an existing one, even if they don't name WorkflowHub. Read-only: never submits, edits or deletes anything. To judge or compare workflows that have already been identified, use workflowhub-evaluate instead."
 license: BSD-3-Clause
 metadata:
-  version: "0.1.4"
+  version: "0.1.5"
   status: draft
   maintainer: eScience Lab, University of Manchester
 # compatibility: Requires the WorkflowHub MCP server (read-only tools)

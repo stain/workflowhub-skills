@@ -110,6 +110,35 @@ Add an entry for each test run, newest first.
 - **Verified against WorkflowHub:**
 - **Issues:**
 
+### 2026-11-16: Supplied and generated crates, HEAD cost, Knowledge Graph
+
+- **Agent and route:** Claude Code (sandbox), reading the SEEK source code
+  (`seek4science/seek` main), the WorkflowHub Knowledge Graph on Zenodo
+  (doi:10.5281/zenodo.23691282, version 2026-10-17) and a few single requests
+  to workflowhub.eu (metadata route and headers only, no ZIPs).
+- **Result:** pass; findings fed into `shared/tools.md`,
+  `ro-crate-consume/references/sources.md` and `workflowhub-inspect/references/profiles.md`.
+- **What was confirmed:**
+  - `HEAD /workflows/<id>/ro_crate` runs the same controller action as GET,
+    which builds the ZIP (`WorkflowsController#ro_crate` calls `ro_crate_zip`;
+    Rails routes HEAD to GET actions). Source code only, not timed.
+  - `/ro_crate_metadata` is served as `application/json`; Signposting on the
+    workflow page advertises only DataCite XML, Bioschemas JSON-LD and the ZIP
+    (workflow 1448).
+  - Of the 1,581 latest-version crates in the Knowledge Graph, 713 were
+    supplied (root `name` not starting "Research Object Crate for") and 868
+    generated. Suppliers: Galaxy Training Network 393 (root `@id` is the GTN
+    page, e.g. workflow 1448), IWC 118, nf-core 70, COMPSs 68, oxo-flow 23,
+    Autosubmit 10. GTN and IWC crates declare no profile; 192 supplied crates
+    have a `TestSuite`, 77 a `CreateAction`; 456 still use `WorkflowSketch`.
+  - All generated crates declare RO-Crate 1.3 and Workflow RO-Crate 1.0 on
+    the descriptor.
+  - Workflow 1072 (a Process and Workflow Run Crate, version 0.5) is served
+    unchanged; SEEK has no code that reads `CreateAction`.
+- **To verify:** the server cost of `/ro_crate_metadata` itself (it builds the
+  crate model without zipping); whether the 2-second pause can be relaxed
+  for it.
+
 ### 2026-11-09: Full rollout of Simplified Technical English, tests 1, 2, 5, 6, 7, 12 and 16
 
 - **Test:** static checks of all rewritten files, then test prompts 1, 2, 5,

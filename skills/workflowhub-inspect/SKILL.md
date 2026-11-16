@@ -3,7 +3,7 @@ name: workflowhub-inspect
 description: "Inspect a specific WorkflowHub workflow version in depth by reading its FAIR Signposting links and its RO-Crate: which profiles the crate conforms to (Workflow RO-Crate, Workflow Testing, Process, Workflow and Provenance Run Crate, and others), the main workflow and its language, declared inputs and outputs, steps, diagram, tests, recorded runs, and any extra information beyond the profile. Use this whenever a researcher or another skill wants to look inside a WorkflowHub workflow beyond its listing page: 'what is in the crate', 'does it have tests', 'has it been run before', 'what inputs does it declare', 'is this a workflow run crate', or before choosing a workflow to reuse. Read-only on WorkflowHub; downloads are size-limited and rate-limited. For the step-by-step meaning of the workflow itself use workflowhub-explain; for judging fit use workflowhub-evaluate."
 license: BSD-3-Clause
 metadata:
-  version: "0.1.4"
+  version: "0.1.5"
   status: draft
   maintainer: eScience Lab, University of Manchester
 ---
@@ -130,6 +130,8 @@ maturity, inputs, outputs and steps. Report each difference with its source.
 Do not decide which value is correct.
 
 Crate titles can have a prefix, for example "Research Object Crate for".
+This prefix shows a generated crate. A crate without it is supplied, and can
+be older than the WorkflowHub record (see `references/tools.md`).
 The `sdDatePublished` of a crate is the time when WorkflowHub made the crate.
 
 ### 7. Get more detail only if necessary
